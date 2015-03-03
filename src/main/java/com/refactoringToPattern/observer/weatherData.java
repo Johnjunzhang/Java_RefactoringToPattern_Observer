@@ -1,22 +1,17 @@
 package com.refactoringToPattern.observer;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
 public class weatherData {
-    private List<IMachineObserver> observers;
+    private final ArrayList<IMachineObserver> machineObserverArrayList = new ArrayList<>();
 
-    public weatherData(seedingMachine seedingMachine, reapingMachine reapingMachine, wateringMachine wateringMachine)
-    {
-        seedingMachineObserver seedingMachineObserver = new seedingMachineObserver(seedingMachine);
-        reapingMachineObserver reapingMachineObserver = new reapingMachineObserver(reapingMachine);
-        wateringMachineObserver wateringMachineObserver = new wateringMachineObserver(wateringMachine);
-        observers = Arrays.asList(seedingMachineObserver, reapingMachineObserver, wateringMachineObserver);
+    public void Subscribe(IMachineObserver seedingMachineObserver) {
+        machineObserverArrayList.add(seedingMachineObserver);
     }
 
     public void MeasurementsChanged(int temp, int humidity, int windPower)
     {
-        observers.forEach(observer -> observer.start(temp, humidity, windPower));
+        machineObserverArrayList.forEach(observer -> observer.start(temp, humidity, windPower));
     }
 
 }
