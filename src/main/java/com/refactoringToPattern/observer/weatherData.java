@@ -1,5 +1,8 @@
 package com.refactoringToPattern.observer;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class weatherData {
     private seedingMachine seedingMachine;
     private reapingMachine reapingMachine;
@@ -14,8 +17,11 @@ public class weatherData {
 
     public void MeasurementsChanged(int temp, int humidity, int windPower)
     {
-        new seedingMachineObserver(seedingMachine).start(temp);
-        new reapingMachineObserver(reapingMachine).start(temp, humidity);
-        new wateringMachineObserver(wateringMachine).start(temp, humidity, windPower);
+        seedingMachineObserver seedingMachineObserver = new seedingMachineObserver(seedingMachine);
+        reapingMachineObserver reapingMachineObserver = new reapingMachineObserver(reapingMachine);
+        wateringMachineObserver wateringMachineObserver = new wateringMachineObserver(wateringMachine);
+        List<IMachineObserver> machineObservers = Arrays.asList(seedingMachineObserver, reapingMachineObserver, wateringMachineObserver);
+        
+        machineObservers.forEach(observer -> observer.start(temp, humidity, windPower));
     }
 }

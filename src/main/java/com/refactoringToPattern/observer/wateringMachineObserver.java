@@ -1,6 +1,6 @@
 package com.refactoringToPattern.observer;
 
-public class wateringMachineObserver {
+public class wateringMachineObserver implements IMachineObserver{
     public com.refactoringToPattern.observer.wateringMachine wateringMachine;
 
     public wateringMachineObserver(wateringMachine wateringMachine) {
